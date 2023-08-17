@@ -1,5 +1,7 @@
 # go-utils
 
+---
+
 ## Installation
 ```shell
 go get github.com/fire1220/go-utils
@@ -9,6 +11,9 @@ go get github.com/fire1220/go-utils
 ```
 import "github.com/fire1220/go-utils"
 ```
+
+---
+
 
 # parallel
 
