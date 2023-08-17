@@ -26,9 +26,9 @@ func TestParallel(t *testing.T) {
 		func2,
 		// func3,
 	},
-		"yes",
-		"ok",
-		// "no",
+		"func1yes",
+		"func2ok",
+		// "func3no",
 	)
 	fmt.Printf("%+v\n%+v\n", list, err)
 }
