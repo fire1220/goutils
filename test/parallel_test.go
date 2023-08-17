@@ -3,7 +3,7 @@ package test
 import (
 	"context"
 	"fmt"
-	utils "go-utils"
+	"go-utils/parallel"
 	"testing"
 )
 
@@ -23,7 +23,7 @@ func TestParallel(t *testing.T) {
 	// 	return param, errors.New("测试错误")
 	// }
 
-	list, err := utils.NewParallel().Exec(ctx, []utils.ParallelHandle{
+	list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{
 		func1,
 		func2,
 		// func3,

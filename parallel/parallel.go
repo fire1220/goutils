@@ -1,4 +1,4 @@
-package wmutil
+package parallel
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 type Parallel struct {
 }
 
-func NewParallel() *Parallel {
+func New() *Parallel {
 	return new(Parallel)
 }
 
