@@ -5,7 +5,12 @@
 ### describe
 > goroutines centralized access
 
+## Usage
 
+```
+import "github.com/fire1220/go-utils/parallel"
+```
+## 
 ```
 list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{function list}, params...)
 ```
