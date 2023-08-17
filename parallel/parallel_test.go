@@ -17,7 +17,7 @@ func TestParallel(t *testing.T) {
 	}
 
 	// func3 := func(ctx context.Context, param interface{}) (interface{}, error) {
-	// 	return param, errors.New("测试错误")
+	// 	return param, errors.New("testing error")
 	// }
 
 	list, err := New().Exec(ctx, []Handle{
