@@ -40,7 +40,13 @@ func2 := func(ctx context.Context, param interface{}) (interface{}, error) {
     return param, nil
 }
 
-list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{func1,func2},"func1ParamYes","func2ParamOk")
+list, err := New().Exec(ctx, []ParallelHandle{
+	func1, // function 1
+	func2, // function 2
+},
+	"func1ParamYes", // function 1 params
+	"func2ParamOk",  // function 2 params
+)
 
 fmt.Printf("%+v\n%+v\n", list, err)
 ```
