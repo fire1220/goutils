@@ -1,9 +1,8 @@
-package test
+package parallel
 
 import (
 	"context"
 	"fmt"
-	"go-utils/parallel"
 	"testing"
 )
 
@@ -21,7 +20,7 @@ func TestParallel(t *testing.T) {
 	// 	return param, errors.New("测试错误")
 	// }
 
-	list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{
+	list, err := New().Exec(ctx, []ParallelHandle{
 		func1,
 		func2,
 		// func3,
