@@ -23,10 +23,6 @@ import "github.com/fire1220/go-utils"
 ```
 import "github.com/fire1220/go-utils/parallel"
 ```
-## 
-```
-list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{function list}, params...)
-```
 
 ### example:
 ```
