@@ -8,8 +8,6 @@ import (
 )
 
 func TestParallel(t *testing.T) {
-	// ctxBase := context.Background()
-	// ctx := context.WithValue(ctxBase, wmutil.ParallelDebugName, true)
 	ctx := context.Background()
 	func1 := func(ctx context.Context, param interface{}) (interface{}, error) {
 		return param, nil
@@ -28,9 +26,9 @@ func TestParallel(t *testing.T) {
 		func2,
 		// func3,
 	},
-		"yes1",
-		"ok2",
-		// "no3",
+		"yes",
+		"ok",
+		// "no",
 	)
 	fmt.Printf("%+v\n%+v\n", list, err)
 }
