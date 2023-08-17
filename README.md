@@ -26,23 +26,29 @@ import "github.com/fire1220/go-utils/parallel"
 
 ### example:
 ```
-ctx := context.Background()
+package main
 
-func1 := func(ctx context.Context, param interface{}) (interface{}, error) {
-    return param, nil
-}
-
-func2 := func(ctx context.Context, param interface{}) (interface{}, error) {
-    return param, nil
-}
-
-list, err := New().Exec(ctx, []ParallelHandle{
-	func1, // function 1
-	func2, // function 2
-},
-	"func1ParamYes", // function 1 params
-	"func2ParamOk",  // function 2 params
+import (
+	"context"
+	"fmt"
+	"github.com/fire1220/go-utils/parallel"
 )
 
-fmt.Printf("%+v\n%+v\n", list, err)
+func main() {
+	ctx := context.Background()
+	func1 := func(ctx context.Context, param interface{}) (interface{}, error) {
+		return param, nil
+	}
+	func2 := func(ctx context.Context, param interface{}) (interface{}, error) {
+		return param, nil
+	}
+	list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{
+		func1, // function 1
+		func2, // function 2
+	},
+		"func1ParamYes", // function 1 params
+		"func2ParamOk",  // function 1 params
+	)
+	fmt.Printf("%+v\n%+v\n", list, err)
+}
 ```
