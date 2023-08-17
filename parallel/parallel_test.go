@@ -20,7 +20,7 @@ func TestParallel(t *testing.T) {
 	// 	return param, errors.New("测试错误")
 	// }
 
-	list, err := New().Exec(ctx, []ParallelHandle{
+	list, err := New().Exec(ctx, []Handle{
 		func1, // function 1
 		func2, // function 2
 		// func3,

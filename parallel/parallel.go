@@ -6,34 +6,34 @@ import (
 	"sync"
 )
 
-type Parallel struct {
+type parallel struct {
 }
 
-func New() *Parallel {
-	return new(Parallel)
+type Handle func(ctx context.Context, param interface{}) (interface{}, error)
+
+func New() *parallel {
+	return new(parallel)
 }
 
-type ParallelHandle func(ctx context.Context, param interface{}) (interface{}, error)
-
-// Exec 协成批量执行方法
-func (t *Parallel) Exec(ctx context.Context, funcList []ParallelHandle, params ...interface{}) ([]interface{}, error) {
+// Exec goroutines batch execute
+func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interface{}) ([]interface{}, error) {
 	if len(params) != 0 && len(params) != len(funcList) {
-		return nil, errors.New("协程执行的方法和参数数量不对应")
+		return nil, errors.New("goroutine execute function name Exec params incorrect quantity")
 	}
 	ctx, cancel := context.WithCancel(ctx)
 	ret := make([]interface{}, len(funcList))
 	errChan := make(chan interface{})
 	wg := &sync.WaitGroup{}
 	wg.Add(1)
-	go func(errChan chan<- interface{}, funcList []ParallelHandle, ret *[]interface{}, params ...interface{}) {
+	go func(errChan chan<- interface{}, funcList []Handle, ret *[]interface{}, params ...interface{}) {
 		defer wg.Done()
 		if len(*ret) != len(funcList) {
-			errChan <- errors.New("协程执行函数参数错误！")
+			errChan <- errors.New("goroutine execute function params error")
 			cancel()
 			return
 		}
 		if len(params) != 0 && len(params) != len(funcList) {
-			errChan <- errors.New("协程执行的方法和参数数量不对应！")
+			errChan <- errors.New("goroutine execute function params incorrect quantity")
 			cancel()
 			return
 		}
@@ -44,7 +44,7 @@ func (t *Parallel) Exec(ctx context.Context, funcList []ParallelHandle, params .
 				p = params[k]
 			}
 			wg.Add(1)
-			go func(f ParallelHandle, p interface{}, index int, errChan chan<- interface{}) {
+			go func(f Handle, p interface{}, index int, errChan chan<- interface{}) {
 				defer func() {
 					if err := recover(); err != nil {
 						errChan <- err
@@ -71,14 +71,14 @@ func (t *Parallel) Exec(ctx context.Context, funcList []ParallelHandle, params .
 			if e, ok := err.(error); ok {
 				return nil, e
 			} else {
-				return nil, errors.New("协程执行panic，并且类型不是error")
+				return nil, errors.New("goroutine execute panic,and is not error type")
 			}
 		}
 	}
 
 	wg.Wait()
 	if len(funcList) != len(ret) {
-		return nil, errors.New("协程执行,方法列表和返回值列表不相等")
+		return nil, errors.New("goroutine execute function list and return list unequal quantity")
 	}
 	return ret, nil
 }
