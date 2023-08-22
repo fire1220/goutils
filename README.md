@@ -1,13 +1,13 @@
-# go-utils
+# goutils
 
 ## Installation
 ```shell
-go get github.com/fire1220/go-utils
+go get github.com/fire1220/goutils
 ```
  ## Usage
 
 ```
-import "github.com/fire1220/go-utils"
+import "github.com/fire1220/goutils"
 ```
 
 ---
@@ -21,7 +21,7 @@ import "github.com/fire1220/go-utils"
 ## Usage
 
 ```
-import "github.com/fire1220/go-utils/parallel"
+import "github.com/fire1220/goutils/parallel"
 ```
 
 ### example:
@@ -31,7 +31,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/fire1220/go-utils/parallel"
+	"github.com/fire1220/goutils/parallel"
 )
 
 func main() {
