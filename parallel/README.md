@@ -8,7 +8,7 @@
 ## Usage
 
 ```
-import "github.com/fire1220/go-utils/parallel"
+import "github.com/fire1220/goutils/parallel"
 ```
 
 ### example:
@@ -18,7 +18,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/fire1220/go-utils/parallel"
+	"github.com/fire1220/goutils/parallel"
 )
 
 func main() {
