@@ -14,6 +14,8 @@ import "github.com/fire1220/goutils/marshal"
 
 ### example:
 ``` go
+package marshal
+
 import (
 	"encoding/json"
 	"fmt"
@@ -24,8 +26,9 @@ import (
 type Good struct {
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	PlayTime  time.Time `json:"play_time"`
+	CreatedAt time.Time `json:"created_at" datetime:"2006-01-02 15:04:05"`
+	UpdatedAt time.Time `json:"updated_at" datetime:"15:04:05"`
 }
 
 func (g Good) MarshalJSON() ([]byte, error) {
@@ -33,9 +36,10 @@ func (g Good) MarshalJSON() ([]byte, error) {
 }
 
 func TestMarshal(t *testing.T) {
-	good := Good{123, "jock", time.Now(), time.Now()}
+	good := Good{ID: 123, Name: "jock", PlayTime: time.Now(), CreatedAt: time.Now()}
 	bytes, _ := json.Marshal(good)
-	// {"id":123,"name":"jock","created_at":"2024-03-14 17:55:03","updated_at":"2024-03-14 17:55:03"}
+	// {"id":123,"name":"jock","play_time":"2024-03-14 19:40:19","created_at":"2024-03-14 19:40:19","updated_at":"00:00:00"}
 	fmt.Printf("%s\n", bytes)
 }
+
 ```
