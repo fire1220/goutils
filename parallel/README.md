@@ -3,7 +3,8 @@
 ---
 
 ### describe
-> goroutines centralized access
+> 启动多协成，统一处理并返回各个协成结果,
+> 方法名和返回值都是slice，会额外返回一个error
 
 ## Usage
 

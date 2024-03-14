@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-// ConvertNum 数字转大些汉字
-func ConvertNum[T constraints.Integer](day T) string {
+// ConvNum 数字转汉字：100 -> 一百
+func ConvNum[T constraints.Integer](day T) string {
 	if day < 0 {
 		return ""
 	}
