@@ -13,7 +13,7 @@ import "github.com/fire1220/goutils/parallel"
 ```
 
 ### example:
-```
+```go
 package main
 
 import (
@@ -22,21 +22,23 @@ import (
 	"github.com/fire1220/goutils/parallel"
 )
 
+func fun1(ctx context.Context, param interface{}) (interface{}, error) {
+	return param, nil
+}
+
+func fun2(ctx context.Context, param interface{}) (interface{}, error) {
+	return param, nil
+}
+
 func main() {
 	ctx := context.Background()
-	func1 := func(ctx context.Context, param interface{}) (interface{}, error) {
-		return param, nil
-	}
-	func2 := func(ctx context.Context, param interface{}) (interface{}, error) {
-		return param, nil
-	}
-	list, err := parallel.New().Exec(ctx, []parallel.ParallelHandle{
-		func1, // function 1
-		func2, // function 2
+	list, err := parallel.New().Exec(ctx, []parallel.Handle{
+		fun1, // function 1
+		fun2, // function 2
 	},
-		"func1ParamYes", // function 1 params
-		"func2ParamOk",  // function 1 params
+		"张三", // function 1 params
+		"李四", // function 1 params
 	)
-	fmt.Printf("%+v\n%+v\n", list, err)
+	fmt.Printf("%+v%+v\n", list, err) // [张三 李四]<nil>
 }
 ```
