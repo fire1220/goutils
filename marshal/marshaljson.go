@@ -3,6 +3,7 @@ package marshal
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 	"time"
 )
 
@@ -13,16 +14,21 @@ type dateTime struct {
 
 func (d dateTime) MarshalJSON() ([]byte, error) {
 	t := d.t
-	format := d.tag.Get("datetime")
-	if format == "" {
-		format = time.DateTime
+	formatData := d.tag.Get("datetime")
+	if formatData == "" {
+		formatData = time.DateTime
 	}
+
+	format, ok := strings.CutSuffix(formatData, ",omitempty")
 	mapTime := map[string]string{
 		time.DateTime: "0000-00-00 00:00:00",
 		time.DateOnly: "0000-00-00",
 		time.TimeOnly: "00:00:00",
 	}
 	if t.IsZero() {
+		if ok {
+			return []byte(`""`), nil
+		}
 		if v, ok := mapTime[format]; ok {
 			return []byte(`"` + v + `"`), nil
 		} else {
