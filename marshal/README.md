@@ -16,33 +16,32 @@ import "github.com/fire1220/goutils/marshal"
 
 ### example:
 ``` go
-package test
+package main
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/fire1220/goutils/marshal"
-	"testing"
 	"time"
 )
 
 type Good struct {
-	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	PlayTime  time.Time `json:"play_time"`
-	CreatedAt time.Time `json:"created_at" datetime:"2006-01-02,omitempty"`
-	UpdatedAt time.Time `json:"updated_at" datetime:"2006-01-02 15:04:05,omitempty"`
+	ID          int       `json:"id"`
+	Name        string    `json:"name"`
+	PlayTime    time.Time `json:"play_time" datetime:"omitempty"`
+	ExecuteTime time.Time `json:"execute_time" datetime:"2006-01-02"`
+	CreatedAt   time.Time `json:"created_at" datetime:"omitempty"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
-func (g Good) MarshalJSON() ([]byte, error) {
-	return marshal.Marshal(g)
+func (t Good) MarshalJSON() ([]byte, error) {
+	return marshal.Marshal(t)
 }
 
-func TestMarshal(t *testing.T) {
-	d, _ := time.Parse(time.DateTime, "0000-00-00 00:00:00")
-	good := Good{ID: 123, Name: "jock", PlayTime: time.Now(), CreatedAt: time.Now(), UpdatedAt: d}
+func main() {
+	good := Good{ID: 123, Name: "jock", PlayTime: time.Now(), ExecuteTime: time.Now()}
 	bytes, _ := json.Marshal(good)
-	// {"id":123,"name":"jock","play_time":"2024-03-15 10:28:38","created_at":"2024-03-15","updated_at":""}
+	// {"id":123,"name":"jock","play_time":"2024-03-15 18:23:43","execute_time":"2024-03-15","created_at":"","updated_at":"0000-00-00 00:00:00"}
 	fmt.Printf("%s\n", bytes)
 }
 ```
