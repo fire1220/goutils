@@ -12,7 +12,7 @@ type Good struct {
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
 	PlayTime  time.Time `json:"play_time"`
-	CreatedAt time.Time `json:"created_at" datetime:"2006-01-02,omitempty"`
+	CreatedAt time.Time `json:"created_at" datetime:"omitempty"`
 	UpdatedAt time.Time `json:"updated_at" datetime:"2006-01-02 15:04:05,omitempty"`
 }
 

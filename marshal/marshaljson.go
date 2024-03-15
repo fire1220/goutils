@@ -15,11 +15,11 @@ type dateTime struct {
 func (d dateTime) MarshalJSON() ([]byte, error) {
 	t := d.t
 	formatData := d.tag.Get("datetime")
-	if formatData == "" {
-		formatData = time.DateTime
-	}
 	format, ok := strings.CutSuffix(formatData, "omitempty")
 	format = strings.Trim(format, ",")
+	if format == "" {
+		format = time.DateTime
+	}
 	mapTime := map[string]string{
 		time.DateTime: "0000-00-00 00:00:00",
 		time.DateOnly: "0000-00-00",
