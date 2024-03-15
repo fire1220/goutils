@@ -6,14 +6,14 @@ import (
 	"time"
 )
 
-type DateTime struct {
-	T   time.Time
-	Tag reflect.StructTag `json:"-"`
+type dateTime struct {
+	t   time.Time
+	tag reflect.StructTag
 }
 
-func (d DateTime) MarshalJSON() ([]byte, error) {
-	t := d.T
-	format := d.Tag.Get("datetime")
+func (d dateTime) MarshalJSON() ([]byte, error) {
+	t := d.t
+	format := d.tag.Get("datetime")
 	if format == "" {
 		format = time.DateTime
 	}
@@ -36,7 +36,7 @@ func Marshal(p any) ([]byte, error) {
 	ref := reflect.ValueOf(p)
 	typ := ref.Type()
 	newField := make([]reflect.StructField, 0, ref.NumField())
-	dateTimeReflectType := reflect.TypeOf(DateTime{})
+	dateTimeReflectType := reflect.TypeOf(dateTime{})
 	for i := 0; i < ref.NumField(); i++ {
 		field := typ.Field(i)
 		fieldType := field.Type
@@ -58,7 +58,7 @@ func Marshal(p any) ([]byte, error) {
 			continue
 		}
 		if v, ok := oldField.Interface().(time.Time); ok {
-			newStruct.Field(i).Set(reflect.ValueOf(DateTime{T: v, Tag: oldFieldType.Tag}))
+			newStruct.Field(i).Set(reflect.ValueOf(dateTime{t: v, tag: oldFieldType.Tag}))
 		}
 	}
 	return json.Marshal(newStruct.Interface())
