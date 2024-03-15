@@ -24,6 +24,6 @@ func TestMarshal(t *testing.T) {
 	d, _ := time.Parse(time.DateTime, "0000-00-00 00:00:00")
 	good := Good{ID: 123, Name: "jock", PlayTime: time.Now(), CreatedAt: time.Now(), UpdatedAt: d}
 	bytes, _ := json.Marshal(good)
-	// {"id":123,"name":"jock","play_time":"2024-03-14 19:40:19","created_at":"2024-03-14 19:40:19","updated_at":"00:00:00"}
+	// {"id":123,"name":"jock","play_time":"2024-03-15 10:28:38","created_at":"2024-03-15","updated_at":""}
 	fmt.Printf("%s\n", bytes)
 }
