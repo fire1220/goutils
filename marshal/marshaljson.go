@@ -19,7 +19,7 @@ func (d dateTime) MarshalJSON() ([]byte, error) {
 		formatData = time.DateTime
 	}
 	format, ok := strings.CutSuffix(formatData, "omitempty")
-	format = strings.Trim(formatData, ",")
+	format = strings.Trim(format, ",")
 	mapTime := map[string]string{
 		time.DateTime: "0000-00-00 00:00:00",
 		time.DateOnly: "0000-00-00",
