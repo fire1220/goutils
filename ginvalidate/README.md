@@ -8,6 +8,11 @@
 
 ## Usage
 
+```shell
+go get github.com/fire1220/goutils/ginvalidate
+```
+或
+
 ```
 import "github.com/fire1220/goutils/ginvalidate"
 ```
@@ -22,15 +27,14 @@ import (
 	"net/http"
 )
 
-type baseController struct {
+type BaseController struct {
 }
 
-func (b *baseController) Validate(ctx *gin.Context, param any) bool {
-	if ok, errs := ginvalidate.SimpleValidate(ctx, &param); !ok {
+func (b *BaseController) Validate(ctx *gin.Context, param any) bool {
+	if ok, errs := ginvalidate.SimpleValidate(ctx, param); !ok {
 		ctx.JSON(http.StatusMethodNotAllowed, gin.H{"code": 405, "msg": errs[0].Error()})
 		return false
 	}
 	return true
 }
-
 ```
