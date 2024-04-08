@@ -8,9 +8,9 @@ import (
 
 // ContextDuplicate 复值上下文的key和val到新的上下文
 func ContextDuplicate(ctx context.Context) context.Context {
-	oldCtx := ctx
 	newCtx := context.Background()
 PARENT:
+	oldCtx := ctx
 	rCtx := reflect.ValueOf(ctx)
 	vCtx := rCtx
 	if rCtx.Kind() == reflect.Pointer {
