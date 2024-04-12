@@ -1,12 +1,12 @@
-package convert
+package common
 
 import (
 	"golang.org/x/exp/constraints"
 	"strings"
 )
 
-// ConvNum 数字转汉字：100 -> 一百
-func ConvNum[T constraints.Integer](day T) string {
+// NumberConvChinese 数字转汉字：100 -> 一百
+func NumberConvChinese[T constraints.Integer](day T) string {
 	if day < 0 {
 		return ""
 	}

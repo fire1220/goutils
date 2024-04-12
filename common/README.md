@@ -11,6 +11,7 @@
 - ContextDuplicate 复值上下文的key和val到新的上下文
 - SliceColumn 取出slice里元素结构体的key成员，返回slice
 - SliceColumnMap 取出slice里元素结构体的key成员，返回map
+- NumberConvChinese 数字转汉字；例："100" 转成 "一百"
 
 ## Usage
 
