@@ -5,7 +5,7 @@ import (
 )
 
 // SliceColumn 取出slice的key，返回key的t类型类别
-func SliceColumn[T1, T2 any](s []T1, key string, keyType *T2) []T2 {
+func SliceColumn[T1, T2 any](keyType *T2, s []T1, key string) []T2 {
 	if len(s) == 0 {
 		return nil
 	}
@@ -24,6 +24,7 @@ func SliceColumn[T1, T2 any](s []T1, key string, keyType *T2) []T2 {
 			for i := 0; i < r.NumField(); i++ {
 				if ty.Field(i).Name == key {
 					existsKey = true
+					break
 				}
 			}
 			if !existsKey {
@@ -37,13 +38,50 @@ func SliceColumn[T1, T2 any](s []T1, key string, keyType *T2) []T2 {
 	return list
 }
 
-func SliceColumnMap[T1, T3 any, T2 comparable](s []T1, key string, ret *map[T2]T3) map[T2]T3 {
+func SliceColumnMap[TSlice, TKey any, TVal comparable](mapType *map[TVal]TKey, s []TSlice, key string, valS ...string) map[TVal]TKey {
 	if len(s) == 0 {
 		return nil
 	}
-	// for _, val := range s {
-
-	// }
-
-	return *ret
+	val := ""
+	if len(valS) > 0 {
+		val = valS[0]
+	}
+	retMap := make(map[TVal]TKey, len(s))
+	for k, v := range s {
+		r := reflect.ValueOf(v)
+		if r.Kind() == reflect.Ptr {
+			r = r.Elem()
+		}
+		t := r.Type()
+		if k == 0 {
+			existsKey := false
+			existsVal := false
+			if val == "" {
+				existsVal = true
+			}
+			for i := 0; i < r.NumField(); i++ {
+				if key == t.Field(i).Name {
+					existsKey = true
+				}
+				if val != "" && val == t.Field(i).Name {
+					existsVal = true
+				}
+			}
+			if !existsKey || !existsVal {
+				return nil
+			}
+			mKey, kOk := r.FieldByName(key).Interface().(TVal)
+			var mVal TKey
+			vOk := false
+			if val == "" {
+				mVal, vOk = r.Interface().(TKey)
+			} else {
+				mVal, vOk = r.FieldByName(val).Interface().(TKey)
+			}
+			if kOk && vOk {
+				retMap[mKey] = mVal
+			}
+		}
+	}
+	return retMap
 }
