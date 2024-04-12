@@ -4,7 +4,7 @@ import (
 	"reflect"
 )
 
-// SliceColumn 取出slice的key，返回retType的类型slice
+// SliceColumn 取出slice里元素结构体的key成员，返回retType的类型slice
 func SliceColumn[T1, T2 any](retType *T2, s []T1, key string) []T2 {
 	if len(s) == 0 {
 		return nil
@@ -38,7 +38,7 @@ func SliceColumn[T1, T2 any](retType *T2, s []T1, key string) []T2 {
 	return list
 }
 
-// SliceColumnMap 取出slice的key，返回retType的类型map
+// SliceColumnMap 取出slice里元素结构体的key成员，返回retType的类型map
 func SliceColumnMap[TSlice, TKey any, TVal comparable](retType *map[TVal]TKey, s []TSlice, key string, valS ...string) map[TVal]TKey {
 	if len(s) == 0 {
 		return nil
