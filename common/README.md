@@ -8,6 +8,7 @@
 - GetAge 根据生日获取年龄
 - IsCancel 判断上下文是否关闭
 - ContextKeys 获取上下文所有key
+- ContextDuplicate 复值上下文的key和val到新的上下文
 
 ## Usage
 
