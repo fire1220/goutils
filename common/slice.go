@@ -4,8 +4,8 @@ import (
 	"reflect"
 )
 
-// SliceColumn 取出slice的key，返回key的t类型类别
-func SliceColumn[T1, T2 any](keyType *T2, s []T1, key string) []T2 {
+// SliceColumn 取出slice的key，返回retType的类型slice
+func SliceColumn[T1, T2 any](retType *T2, s []T1, key string) []T2 {
 	if len(s) == 0 {
 		return nil
 	}
@@ -38,7 +38,8 @@ func SliceColumn[T1, T2 any](keyType *T2, s []T1, key string) []T2 {
 	return list
 }
 
-func SliceColumnMap[TSlice, TKey any, TVal comparable](mapType *map[TVal]TKey, s []TSlice, key string, valS ...string) map[TVal]TKey {
+// SliceColumnMap 取出slice的key，返回retType的类型map
+func SliceColumnMap[TSlice, TKey any, TVal comparable](retType *map[TVal]TKey, s []TSlice, key string, valS ...string) map[TVal]TKey {
 	if len(s) == 0 {
 		return nil
 	}
