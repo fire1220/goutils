@@ -5,12 +5,12 @@ import (
 )
 
 // SliceColumn 取出slice的key，返回key的t类型类别
-func SliceColumn[T1, T2 any](arr []T1, key string, keyType *T2) []T2 {
-	if len(arr) == 0 {
+func SliceColumn[T1, T2 any](s []T1, key string, keyType *T2) []T2 {
+	if len(s) == 0 {
 		return nil
 	}
-	list := make([]T2, 0, len(arr))
-	for k, val := range arr {
+	list := make([]T2, 0, len(s))
+	for k, val := range s {
 		r := reflect.ValueOf(val)
 		if r.Kind() == reflect.Ptr {
 			r = r.Elem()
@@ -35,4 +35,15 @@ func SliceColumn[T1, T2 any](arr []T1, key string, keyType *T2) []T2 {
 		}
 	}
 	return list
+}
+
+func SliceColumnMap[T1, T3 any, T2 comparable](s []T1, key string, ret *map[T2]T3) map[T2]T3 {
+	if len(s) == 0 {
+		return nil
+	}
+	// for _, val := range s {
+
+	// }
+
+	return *ret
 }
