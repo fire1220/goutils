@@ -6,6 +6,16 @@ import (
 	"reflect"
 )
 
+// IsCancel 判断上下文是否关闭
+func IsCancel(ctx context.Context) bool {
+	select {
+	case <-ctx.Done():
+		return true
+	default:
+		return false
+	}
+}
+
 // ContextDuplicate 复值上下文的key和val到新的上下文
 func ContextDuplicate(ctx context.Context) context.Context {
 	newCtx := context.Background()
