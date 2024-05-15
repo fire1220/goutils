@@ -68,6 +68,8 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 		if err, ok := <-errChan; !ok {
 			break
 		} else if err != nil {
+			for range errChan {
+			}
 			if e, ok := err.(error); ok {
 				return nil, e
 			} else {
