@@ -6,10 +6,16 @@
 > 启动多协成，统一处理并返回各个协成结果,
 > 方法名和返回值都是slice，会额外返回一个error
 
-## Usage
-
-```
+### Getting marshaljson
+With Go's module support, go `[build|run|test]` automatically fetches the necessary dependencies when you add the import in your code:
+```shell
 import "github.com/fire1220/goutils/parallel"
+```
+
+Alternatively, use go get:
+
+```shell
+go get github.com/fire1220/goutils/parallel
 ```
 
 ### example:

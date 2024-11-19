@@ -4,13 +4,13 @@
 ### Getting marshaljson
 With Go's module support, go `[build|run|test]` automatically fetches the necessary dependencies when you add the import in your code:
 ```shell
-import "github.com/fire1220/marshaljson"
+import "github.com/fire1220/goutils/marshaljson"
 ```
 
 Alternatively, use go get:
 
 ```shell
-go get github.com/fire1220/marshaljson
+go get github.com/fire1220/goutils/marshaljson
 ```
 
 ### Running marshaljson

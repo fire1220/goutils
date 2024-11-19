@@ -1,8 +1,9 @@
-package parallel
+package test
 
 import (
 	"context"
 	"fmt"
+	"github.com/fire1220/goutils/parallel"
 	"testing"
 )
 
@@ -20,7 +21,7 @@ func TestParallel(t *testing.T) {
 	// 	return param, errors.New("testing error")
 	// }
 
-	list, err := New().Exec(ctx, []Handle{
+	list, err := parallel.New().Exec(ctx, []parallel.Handle{
 		func1, // function 1
 		func2, // function 2
 		// func3,

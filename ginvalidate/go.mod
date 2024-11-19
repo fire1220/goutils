@@ -1,4 +1,4 @@
-module github.com/fire1220/goutils
+module github.com/fire1220/goutils/ginvalidate
 
 go 1.20
 
@@ -7,7 +7,6 @@ require (
 	github.com/go-playground/locales v0.14.1
 	github.com/go-playground/universal-translator v0.18.1
 	github.com/go-playground/validator/v10 v10.19.0
-	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
 )
 
 require (
