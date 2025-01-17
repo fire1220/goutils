@@ -29,6 +29,10 @@ func verifyField(fieldType reflect.StructField, fieldVal reflect.Value, tabName 
 	return tm, true
 }
 
+// MarshalFormat
+// 参数不能是指针类型，上层函数，必须是值接受
+// 如果有结构体嵌套的情况，需要把每个结构图都实现 MarshalJSON 方法，
+// 否则会把子集的结构体的 MarshalJSON继承到父级里，导致结构图替换时候缺少父级字段
 func MarshalFormat(p any) ([]byte, error) {
 	ref := reflect.ValueOf(p)
 	if ref.Kind() == reflect.Pointer {
