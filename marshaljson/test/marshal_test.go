@@ -59,8 +59,9 @@ type User struct {
 
 // 如果有结构体嵌套的情况，需要把每个结构图都实现 MarshalJSON 方法，
 // 否则会把子集的结构体的 MarshalJSON继承到父级里，导致结构图替换时候缺少父级字段
+// 或者不用嵌套的方式，用 User User `json:"user"` 的方式
 type UserWithTeacher struct {
-	// User        User      `json:"user"` // 如果有
+	// User        User      `json:"user"`
 	User
 	TeacherName string    `json:"teacher_name"`
 	PlayTime    time.Time `json:"play_time" datetime:"2006-01-02 15:04:05"`
