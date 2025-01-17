@@ -3,7 +3,8 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/fire1220/marshaljson"
+	// "github.com/fire1220/marshaljson"
+	"github.com/fire1220/goutils/marshaljson"
 	"testing"
 	"time"
 )
