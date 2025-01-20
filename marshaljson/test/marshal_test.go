@@ -76,7 +76,12 @@ func (t UserWithTeacher) MarshalJSON() ([]byte, error) {
 }
 
 func TestMarshal2(t *testing.T) {
-	user := User{ID: 1, Name: "李四", TeacherId: 1, CreatedAt: time.Now()}
+	user := User{
+		ID:        1,
+		Name:      "李四",
+		TeacherId: 1,
+		CreatedAt: time.Now(),
+	}
 	teacher := UserWithTeacher{
 		User:        user,
 		TeacherName: "张三",

@@ -40,7 +40,6 @@ func MarshalFormat(p any) ([]byte, error) {
 	}
 	typ := ref.Type()
 	newField := make([]reflect.StructField, 0, ref.NumField())
-	isNeedNewStruct := false
 	for i := 0; i < ref.NumField(); i++ {
 		field := typ.Field(i)
 		fieldType := field.Type
@@ -50,7 +49,6 @@ func MarshalFormat(p any) ([]byte, error) {
 				continue
 			}
 			fieldType = tm.refTypOf
-			isNeedNewStruct = true
 			break
 		}
 		newField = append(newField, reflect.StructField{
@@ -58,9 +56,6 @@ func MarshalFormat(p any) ([]byte, error) {
 			Type: fieldType,
 			Tag:  field.Tag,
 		})
-	}
-	if !isNeedNewStruct {
-		return json.Marshal(p)
 	}
 
 	newStruct := reflect.New(reflect.StructOf(newField)).Elem()
