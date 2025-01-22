@@ -23,7 +23,7 @@ type Good struct {
 	Float1  float64     `json:"float1" default:"11.1"`
 	Float2  float64     `json:"float2" default:"-11.1"`
 	Float3  float64     `json:"float3" defaultString:"hello"`
-	Uint    uint        `json:"uint" default:"-111"`
+	Uint    uint        `json:"uint" default:"111"`
 	Bool1   bool        `json:"bool1" default:"false"`
 	Bool2   bool        `json:"bool2" default:"true"`
 	Bool3   bool        `json:"bool3" defaultString:"hello"`

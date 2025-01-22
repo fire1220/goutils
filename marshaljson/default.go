@@ -14,6 +14,14 @@ func stringToInt64(str string) ([]byte, error) {
 	return []byte(str), nil
 }
 
+func stringToUint64(str string) ([]byte, error) {
+	_, err := strconv.ParseUint(str, 10, 64)
+	if err != nil {
+		return nil, errors.New("tag default value is not int")
+	}
+	return []byte(str), nil
+}
+
 func stringToBool(str string) ([]byte, error) {
 	if str != "true" && str != "false" {
 		return nil, errors.New("tag default value is not bool")
@@ -55,16 +63,24 @@ var kindBoolMap = map[reflect.Kind]func(string) ([]byte, error){
 }
 
 var kindIntMap = map[reflect.Kind]func(string) ([]byte, error){
-	reflect.Int:    stringToInt64,
-	reflect.Int8:   stringToInt64,
-	reflect.Int16:  stringToInt64,
-	reflect.Int32:  stringToInt64,
-	reflect.Int64:  stringToInt64,
-	reflect.Uint:   stringToInt64,
-	reflect.Uint8:  stringToInt64,
-	reflect.Uint16: stringToInt64,
-	reflect.Uint32: stringToInt64,
-	reflect.Uint64: stringToInt64,
+	reflect.Int:   stringToInt64,
+	reflect.Int8:  stringToInt64,
+	reflect.Int16: stringToInt64,
+	reflect.Int32: stringToInt64,
+	reflect.Int64: stringToInt64,
+	// reflect.Uint:   stringToInt64,
+	// reflect.Uint8:  stringToInt64,
+	// reflect.Uint16: stringToInt64,
+	// reflect.Uint32: stringToInt64,
+	// reflect.Uint64: stringToInt64,
+}
+
+var kindUintMap = map[reflect.Kind]func(string) ([]byte, error){
+	reflect.Uint:   stringToUint64,
+	reflect.Uint8:  stringToUint64,
+	reflect.Uint16: stringToUint64,
+	reflect.Uint32: stringToUint64,
+	reflect.Uint64: stringToUint64,
 }
 
 var kindFloatMap = map[reflect.Kind]func(string) ([]byte, error){
@@ -89,6 +105,7 @@ var kindPtrMap = map[reflect.Kind]func(string) ([]byte, error){
 var kindSlice = []map[reflect.Kind]func(string) ([]byte, error){
 	kindBoolMap,
 	kindIntMap,
+	kindUintMap,
 	kindFloatMap,
 	kindArrayMap,
 	kindObjMap,
