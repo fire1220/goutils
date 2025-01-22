@@ -13,6 +13,16 @@ Alternatively, use go get:
 go get github.com/fire1220/goutils/marshaljson
 ```
 
+# 使用参数说明
+- `datetime`格式化`time.Time`格式为字符串，格式规则和`time.Format`通用
+- `default`设置默认值,规则如下
+  - 基础类型 : 默认值只能是对应的基础类型值
+  - slice : 默认值只能是:`[]`空数组、`{}`空对象
+  - map : 默认值只能是:`{}`空对象、任意字符串
+  - struct : 默认值只能是:`{}`空对象
+  - 指针类型 : 默认值只能是:`[]`空数组、`{}`空对象、任意字符串
+- `defaultString` 设置默认值为字符串
+
 ### Running marshaljson
 
 ```go
@@ -96,32 +106,39 @@ func TestMarshal(t *testing.T) {
 [
   {
     "id": 456,
-    "val_float": 111,
-    "val": -111,
-    "val_bool": true,
-    "val_slice": [],
-    "val_map": {},
-    "val_struct": {
+    "float1": 11.1,
+    "float2": -11.1,
+    "float3": "hello",
+    "uint": 111,
+    "bool1": false,
+    "bool2": true,
+    "bool3": "hello",
+    "slice1": [],
+    "slice2": {},
+    "slice3": "hello",
+    "slice4": "",
+    "map1": "[]",
+    "map2": "hello",
+    "struct1": {
       "title": "ABC",
       "like": "",
       "play_time": "0000-00-00 00:00:00"
     },
-    "val_struct2": {},
+    "struct2": {},
+    "struct3": "hello",
+    "ptr1": {},
+    "ptr2": [],
+    "ptr3": "hello",
+    "string1": "hello",
+    "string2": "hello",
     "name": "123",
-    "play_time": "2024-11-19 23:20:30",
-    "execute_time": "2024-11-19",
-    "created_at": "0000-00-00",
-    "updated_at": ""
+    "time1": "2025-01-22 18:23:01",
+    "time2": "2025-01-22",
+    "time3": "18:23:01",
+    "time4": "2025-01-22 18:23:01",
+    "time5": "",
+    "time6": "-"
   }
 ]
 ```
 
-# 使用参数说明
-- `datetime`格式化`time.Time`格式为字符串，格式规则和`time.Format`通用
-- `default`设置默认值,规则如下
-  - 基础类型 : 默认值只能是对应的基础类型值
-  - slice : 默认值只能是:`[]`空数组、`{}`空对象
-  - map : 默认值只能是:`{}`空对象、任意字符串
-  - struct : 默认值只能是:`{}`空对象
-  - 指针类型 : 默认值只能是:`[]`空数组、`{}`空对象、任意字符串
-- `defaultString` 设置默认值为字符串
