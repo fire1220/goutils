@@ -30,6 +30,7 @@ type Good struct {
 	Slice1  []bool      `json:"slice1" default:"[]"`
 	Slice2  []bool      `json:"slice2" default:"{}"`
 	Slice3  []bool      `json:"slice3" defaultString:"hello"`
+	Slice4  []bool      `json:"slice4" defaultString:""`
 	Map1    map[int]int `json:"map1" default:"[]"`
 	Map2    map[int]int `json:"map2" default:"hello"`
 	Struct1 GoodInfo    `json:"struct1"`

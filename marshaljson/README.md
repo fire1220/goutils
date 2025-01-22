@@ -92,9 +92,10 @@ func TestMarshal(t *testing.T) {
 
 # 使用参数说明
 - `datetime`格式化`time.Time`格式为字符串，格式规则和`time.Format`通用
-- `default`设置默认值
+- `default`设置默认值,规则如下
   - 基础类型 : 默认值只能是对应的基础类型值
   - slice : 默认值只能是:`[]`空数组、`{}`空对象
   - map : 默认值只能是:`{}`空对象、任意字符串
   - struct : 默认值只能是:`{}`空对象
   - 指针类型 : 默认值只能是:`[]`空数组、`{}`空对象、任意字符串
+- `defaultString` 设置默认值为字符串
