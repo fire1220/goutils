@@ -24,9 +24,14 @@ type Good struct {
 	Val         uint        `json:"val" default:"-111"`
 	ValBool     bool        `json:"val_bool" default:"true"`
 	ValSlice    []bool      `json:"val_slice" default:"[]"`
-	ValMap      map[int]int `json:"val_map" default:"{}"`
+	ValSlice2   []bool      `json:"val_slice2" default:"{}"`
+	ValMap      map[int]int `json:"val_map" default:"[]"`
 	ValStruct   GoodInfo    `json:"val_struct"`
 	ValStruct2  GoodInfo    `json:"val_struct2" default:"{}"`
+	ValStruct3  GoodInfo    `json:"val_struct3" default:"hello"`
+	ValPtr      *GoodInfo   `json:"val_ptr" default:"{}"`
+	ValPtr2     *GoodInfo   `json:"val_ptr2" default:"[]"`
+	ValPtr3     *GoodInfo   `json:"val_ptr3" default:"hello"`
 	Name        string      `json:"name" default:"123"`
 	PlayTime    time.Time   `json:"play_time" datetime:"2006-01-02 15:04:05"`
 	ExecuteTime time.Time   `json:"execute_time" datetime:"2006-01-02" default:"-"`
