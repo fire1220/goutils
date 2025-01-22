@@ -28,7 +28,6 @@ type Good struct {
 	ValMap      map[int]int `json:"val_map" default:"[]"`
 	ValStruct   GoodInfo    `json:"val_struct"`
 	ValStruct2  GoodInfo    `json:"val_struct2" default:"{}"`
-	ValStruct3  GoodInfo    `json:"val_struct3" default:"hello"`
 	ValPtr      *GoodInfo   `json:"val_ptr" default:"{}"`
 	ValPtr2     *GoodInfo   `json:"val_ptr2" default:"[]"`
 	ValPtr3     *GoodInfo   `json:"val_ptr3" default:"hello"`
@@ -44,7 +43,12 @@ func (t Good) MarshalJSON() ([]byte, error) {
 }
 
 func TestMarshal(t *testing.T) {
-	good := Good{ID: 0, Name: "", PlayTime: time.Now(), ExecuteTime: time.Now()}
+	good := Good{
+		ID:          0,
+		Name:        "",
+		PlayTime:    time.Now(),
+		ExecuteTime: time.Now(),
+	}
 	bytes, err := json.Marshal(good)
 	fmt.Printf("%s\n", bytes)
 	fmt.Println(err)

@@ -43,6 +43,13 @@ func stringToObj(str string) ([]byte, error) {
 	return []byte(`"` + str + `"`), nil
 }
 
+func stringToPrt(str string) ([]byte, error) {
+	if str == "{}" || str == "[]" {
+		return []byte(str), nil
+	}
+	return []byte(`"` + str + `"`), nil
+}
+
 var kindBoolMap = map[reflect.Kind]func(string) ([]byte, error){
 	reflect.Bool: stringToBool,
 }
@@ -75,12 +82,17 @@ var kindObjMap = map[reflect.Kind]func(string) ([]byte, error){
 	reflect.Map:    stringToObj,
 }
 
+var kindPtrMap = map[reflect.Kind]func(string) ([]byte, error){
+	reflect.Pointer: stringToPrt,
+}
+
 var kindSlice = []map[reflect.Kind]func(string) ([]byte, error){
 	kindBoolMap,
 	kindIntMap,
 	kindFloatMap,
 	kindArrayMap,
 	kindObjMap,
+	kindPtrMap,
 }
 
 type defaultT struct {
