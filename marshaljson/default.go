@@ -22,7 +22,7 @@ func stringToBool(str string) ([]byte, error) {
 }
 
 func stringToFloat64(str string) ([]byte, error) {
-	_, err := strconv.ParseFloat(str, 10)
+	_, err := strconv.ParseFloat(str, 64)
 	if err != nil {
 		return nil, errors.New("tag default value is not float")
 	}
