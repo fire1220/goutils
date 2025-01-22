@@ -17,16 +17,16 @@ func verifyField(fieldType reflect.StructField, fieldVal reflect.Value, tabName 
 	if tm.restrain != "" && fieldType.Type.String() != tm.restrain {
 		return tm, false
 	}
-	if tabName == tabDateTime && fieldVal.IsZero() {
+	if tabName == tabDateTime {
 		return tm, true
 	}
-	if tabName == tabDefault && !fieldVal.IsZero() {
-		return tm, false
+	if tabName == tabDefault && fieldVal.IsZero() {
+		return tm, true
 	}
-	if tabName != tabDefault && fieldVal.IsZero() {
-		return tm, false
+	if tabName == tabDefaultString && fieldVal.IsZero() {
+		return tm, true
 	}
-	return tm, true
+	return tm, false
 }
 
 // MarshalFormat

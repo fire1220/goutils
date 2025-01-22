@@ -19,23 +19,34 @@ func (t GoodInfo) MarshalJSON() ([]byte, error) {
 }
 
 type Good struct {
-	ID          int32       `json:"id" default:"456"`
-	ValFloat    float64     `json:"val_float" default:"111"`
-	Val         uint        `json:"val" default:"-111"`
-	ValBool     bool        `json:"val_bool" default:"true"`
-	ValSlice    []bool      `json:"val_slice" default:"[]"`
-	ValSlice2   []bool      `json:"val_slice2" default:"{}"`
-	ValMap      map[int]int `json:"val_map" default:"[]"`
-	ValStruct   GoodInfo    `json:"val_struct"`
-	ValStruct2  GoodInfo    `json:"val_struct2" default:"{}"`
-	ValPtr      *GoodInfo   `json:"val_ptr" default:"{}"`
-	ValPtr2     *GoodInfo   `json:"val_ptr2" default:"[]"`
-	ValPtr3     *GoodInfo   `json:"val_ptr3" default:"hello"`
-	Name        string      `json:"name" default:"123"`
-	PlayTime    time.Time   `json:"play_time" datetime:"2006-01-02 15:04:05"`
-	ExecuteTime time.Time   `json:"execute_time" datetime:"2006-01-02" default:"-"`
-	CreatedAt   time.Time   `json:"created_at" datetime:"2006-01-02 15:04:05" default:"0000-00-00"`
-	UpdatedAt   time.Time   `json:"updated_at" default:""`
+	ID      int32       `json:"id" default:"456"`
+	Float1  float64     `json:"float1" default:"11.1"`
+	Float2  float64     `json:"float2" default:"-11.1"`
+	Float3  float64     `json:"float3" defaultString:"hello"`
+	Uint    uint        `json:"uint" default:"-111"`
+	Bool1   bool        `json:"bool1" default:"false"`
+	Bool2   bool        `json:"bool2" default:"true"`
+	Bool3   bool        `json:"bool3" defaultString:"hello"`
+	Slice1  []bool      `json:"slice1" default:"[]"`
+	Slice2  []bool      `json:"slice2" default:"{}"`
+	Slice3  []bool      `json:"slice3" defaultString:"hello"`
+	Map1    map[int]int `json:"map1" default:"[]"`
+	Map2    map[int]int `json:"map2" default:"hello"`
+	Struct1 GoodInfo    `json:"struct1"`
+	Struct2 GoodInfo    `json:"struct2" default:"{}"`
+	Struct3 GoodInfo    `json:"struct3" default:"hello"`
+	Ptr1    *GoodInfo   `json:"ptr1" default:"{}"`
+	Ptr2    *GoodInfo   `json:"ptr2" default:"[]"`
+	Ptr3    *GoodInfo   `json:"ptr3" default:"hello"`
+	String1 string      `json:"string1" defaultString:"hello"`
+	String2 string      `json:"string2" default:"hello"`
+	Name    string      `json:"name" default:"123"`
+	Time1   time.Time   `json:"time1" datetime:"2006-01-02 15:04:05"`
+	Time2   time.Time   `json:"time2" datetime:"2006-01-02"`
+	Time3   time.Time   `json:"time3" datetime:"15:04:05" default:"-"`
+	Time4   time.Time   `json:"time4" datetime:"2006-01-02 15:04:05" default:"0000-00-00"`
+	Time5   time.Time   `json:"time5" default:""`
+	Time6   time.Time   `json:"time6" default:"-"`
 }
 
 func (t Good) MarshalJSON() ([]byte, error) {
@@ -44,10 +55,12 @@ func (t Good) MarshalJSON() ([]byte, error) {
 
 func TestMarshal(t *testing.T) {
 	good := Good{
-		ID:          0,
-		Name:        "",
-		PlayTime:    time.Now(),
-		ExecuteTime: time.Now(),
+		ID:    0,
+		Name:  "",
+		Time1: time.Now(),
+		Time2: time.Now(),
+		Time3: time.Now(),
+		Time4: time.Now(),
 	}
 	bytes, err := json.Marshal(good)
 	fmt.Printf("%s\n", bytes)
