@@ -3,9 +3,9 @@ package marshaljson
 import "reflect"
 
 const (
-	tabDefault       = "default"
-	tabDefaultString = "defaultString"
-	tabDateTime      = "datetime"
+	tabNameDefault       = "default"
+	tabNameDefaultString = "defaultString"
+	tabNameDateTime      = "datetime"
 )
 
 type tabT struct {
@@ -15,22 +15,22 @@ type tabT struct {
 }
 
 var (
-	tabList = []string{tabDefault, tabDefaultString, tabDateTime}
+	tabList = []string{tabNameDefault, tabNameDefaultString, tabNameDateTime}
 	tabMap  = map[string]tabT{
-		tabDefault: {
-			refTypOf: reflect.TypeOf(defaultT{}),
+		tabNameDefault: {
+			refTypOf: reflect.TypeOf(tabDefault{}),
 			restrain: "",
-			fun:      defaultT{},
+			fun:      tabDefault{},
 		},
-		tabDefaultString: {
-			refTypOf: reflect.TypeOf(defaultStringT{}),
+		tabNameDefaultString: {
+			refTypOf: reflect.TypeOf(tabDefaultString{}),
 			restrain: "",
-			fun:      defaultStringT{},
+			fun:      tabDefaultString{},
 		},
-		tabDateTime: {
-			refTypOf: reflect.TypeOf(dateTime{}),
+		tabNameDateTime: {
+			refTypOf: reflect.TypeOf(tabDateTime{}),
 			restrain: "time.Time",
-			fun:      dateTime{},
+			fun:      tabDateTime{},
 		},
 	}
 )

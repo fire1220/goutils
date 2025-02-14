@@ -112,12 +112,12 @@ var kindSlice = []map[reflect.Kind]func(string) ([]byte, error){
 	kindPtrMap,
 }
 
-type defaultT struct {
+type tabDefault struct {
 	tag reflect.StructField
 }
 
-func (d defaultT) MarshalJSON() ([]byte, error) {
-	format := d.tag.Tag.Get(tabDefault)
+func (d tabDefault) MarshalJSON() ([]byte, error) {
+	format := d.tag.Tag.Get(tabNameDefault)
 	for _, m := range kindSlice {
 		if fn, ok := m[d.tag.Type.Kind()]; ok {
 			return fn(format)
@@ -126,6 +126,6 @@ func (d defaultT) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + format + `"`), nil
 }
 
-func (d defaultT) typeConv(field reflect.Value, typ reflect.StructField) (reflect.Value, bool) {
-	return reflect.ValueOf(defaultT{tag: typ}), true
+func (d tabDefault) typeConv(field reflect.Value, typ reflect.StructField) (reflect.Value, bool) {
+	return reflect.ValueOf(tabDefault{tag: typ}), true
 }
