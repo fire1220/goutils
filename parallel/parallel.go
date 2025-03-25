@@ -3,8 +3,13 @@ package parallel
 import (
 	"context"
 	"errors"
+	"fmt"
 	"sync"
 )
+
+type Para interface {
+	Exec() error
+}
 
 type parallel struct {
 }
@@ -83,4 +88,43 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 		return nil, errors.New("goroutine execute function list and return list unequal quantity")
 	}
 	return ret, nil
+}
+
+func (p *parallel) ExecWithObj(ctx context.Context, objList []Para) error {
+	if len(objList) == 0 {
+		return nil
+	}
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	errCh := make(chan error)
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go func(errCh chan<- error, objList []Para) {
+		defer wg.Done()
+		wg := sync.WaitGroup{}
+		for _, obj := range objList {
+			wg.Add(1)
+			go func(errCh chan<- error, obj Para) {
+				defer func() {
+					if e := recover(); e != nil {
+						errCh <- fmt.Errorf("panic : err = %v", e)
+						cancel()
+					}
+				}()
+				defer wg.Done()
+				err := obj.Exec()
+				if err != nil {
+					errCh <- err
+					cancel()
+				}
+			}(errCh, obj)
+		}
+		wg.Wait()
+		close(errCh)
+	}(errCh, objList)
+	for err := range errCh {
+		return err
+	}
+	wg.Wait()
+	return nil
 }
