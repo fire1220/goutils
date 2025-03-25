@@ -90,6 +90,20 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 	return ret, nil
 }
 
+// ExecObj
+//
+//	example:
+//	type Add struct {
+//		Param [2]int
+//		Res   int
+//	}
+//	func (a *Add) Exec() error {
+//		a.Res = a.Param[0] + a.Param[1]
+//		return nil
+//	}
+//	y := &Add{Param: [2]int{1, 2}}
+//	err := parallel.New().ExecObj(ctx, []parallel.Para{x, y})
+//	fmt.Printf("%#v\n %v", y, err)
 func (p *parallel) ExecObj(ctx context.Context, objList []Para) error {
 	if len(objList) == 0 {
 		return nil
