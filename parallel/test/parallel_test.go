@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/fire1220/goutils/parallel"
-	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -34,32 +34,32 @@ func TestParallel(t *testing.T) {
 	fmt.Printf("%+v\n%+v\n", list, err)
 }
 
-type Like struct {
-	Param int
+type Concat struct {
+	Param [2]string
 	Res   string
 }
 
-func (u *Like) Exec() error {
-	u.Res = strconv.Itoa(u.Param*100) + " 篮球"
+func (c *Concat) Exec() error {
+	c.Res = strings.Join(c.Param[:], " ")
 	return nil
 }
 
-type Age struct {
-	Param int
+type Add struct {
+	Param [2]int
 	Res   int
 }
 
-func (u *Age) Exec() error {
-	u.Res = u.Param + 10
+func (a *Add) Exec() error {
+	a.Res = a.Param[0] + a.Param[1]
 	return nil
 }
 
 func TestExecWithObj(t *testing.T) {
 	ctx := context.Background()
-	like := &Like{Param: 1}
-	age := &Age{Param: 2}
-	err := parallel.New().ExecWithObj(ctx, []parallel.Para{like, age})
-	fmt.Printf("%#v\n", like)
-	fmt.Printf("%#v\n", age)
+	x := &Concat{Param: [2]string{"hello", "world"}}
+	y := &Add{Param: [2]int{1, 2}}
+	err := parallel.New().ExecObj(ctx, []parallel.Para{x, y})
+	fmt.Printf("%#v\n", x)
+	fmt.Printf("%#v\n", y)
 	fmt.Printf("%+v\n", err)
 }

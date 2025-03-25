@@ -90,7 +90,7 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 	return ret, nil
 }
 
-func (p *parallel) ExecWithObj(ctx context.Context, objList []Para) error {
+func (p *parallel) ExecObj(ctx context.Context, objList []Para) error {
 	if len(objList) == 0 {
 		return nil
 	}
