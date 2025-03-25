@@ -58,7 +58,7 @@ func TestExecWithObj(t *testing.T) {
 	ctx := context.Background()
 	x := &Concat{Param: [2]string{"hello", "world"}}
 	y := &Add{Param: [2]int{1, 2}}
-	err := parallel.New().ExecObj(ctx, []parallel.Para{x, y})
+	err := parallel.New().ExecObj(ctx, x, y)
 	fmt.Printf("%#v\n", x)
 	fmt.Printf("%#v\n", y)
 	fmt.Printf("%+v\n", err)

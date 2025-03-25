@@ -104,7 +104,7 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 //	y := &Add{Param: [2]int{1, 2}}
 //	err := parallel.New().ExecObj(ctx, []parallel.Para{x, y})
 //	fmt.Printf("%#v\n %v", y, err)
-func (p *parallel) ExecObj(ctx context.Context, objList []Para) error {
+func (p *parallel) ExecObj(ctx context.Context, objList ...Para) error {
 	if len(objList) == 0 {
 		return nil
 	}
