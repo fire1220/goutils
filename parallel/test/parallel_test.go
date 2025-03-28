@@ -34,6 +34,25 @@ func TestParallel(t *testing.T) {
 	fmt.Printf("%+v\n%+v\n", list, err)
 }
 
+func TestParallel2(t *testing.T) {
+	ctx := context.Background()
+	var res1 string
+	var res2 int
+	_, err := parallel.New().Exec(ctx, []parallel.Handle{
+		func(ctx context.Context, param interface{}) (interface{}, error) {
+			p, _ := param.(string)
+			res1 = "hello" + p
+			return nil, nil
+		},
+		func(ctx context.Context, param interface{}) (interface{}, error) {
+			p, _ := param.(int)
+			res2 = 100 + p
+			return nil, nil
+		},
+	}, "func1ParamYes", 12)
+	fmt.Printf("%+v %+v\n%+v\n", res1, res2, err)
+}
+
 type Concat struct {
 	Param [2]string
 	Res   string
