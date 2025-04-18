@@ -20,7 +20,42 @@ func New() *parallel {
 	return new(parallel)
 }
 
+// Go batch execute goroutines
+func (p *parallel) Go(ctx context.Context, fnList ...func(ctx context.Context) error) error {
+	if len(fnList) == 0 {
+		return nil
+	}
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	chErr := make(chan error, len(fnList))
+	wg := sync.WaitGroup{}
+	for k, fn := range fnList {
+		wg.Add(1)
+		go func(ctx context.Context, k int, fn func(ctx context.Context) error) {
+			defer func() {
+				if e := recover(); e != nil {
+					cancel()
+					chErr <- fmt.Errorf("parallel index %v panic: %v", k, e)
+				}
+			}()
+			defer wg.Done()
+			err := fn(ctx)
+			if err != nil {
+				cancel()
+				chErr <- fmt.Errorf("parallel index %v error: %v", k, err)
+			}
+		}(ctx, k, fn)
+	}
+	wg.Wait()
+	close(chErr)
+	for err := range chErr {
+		return err
+	}
+	return nil
+}
+
 // Exec goroutines batch execute
+// return each response
 func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interface{}) ([]interface{}, error) {
 	if len(params) != 0 && len(params) != len(funcList) {
 		return nil, errors.New("goroutine execute function name Exec params incorrect quantity")

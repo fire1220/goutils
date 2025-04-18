@@ -2,20 +2,41 @@ package test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/fire1220/goutils/parallel"
 	"strings"
 	"testing"
 )
 
-func TestParallel(t *testing.T) {
+func TestGo(t *testing.T) {
+	ctx := context.Background()
+	x, y := 0, 0
+	err := parallel.New().Go(ctx,
+		func(ctx context.Context) error {
+			x = 1
+			return nil
+		},
+		func(ctx context.Context) error {
+			y = 2
+			return errors.New("bb")
+		},
+		func(ctx context.Context) error {
+			return errors.New("cc")
+		},
+	)
+	fmt.Printf("X:%+v Y:%+v\n", x, y)
+	fmt.Printf("%+v\n", err)
+}
+
+func TestExec(t *testing.T) {
 	ctx := context.Background()
 	func1 := func(ctx context.Context, param interface{}) (interface{}, error) {
-		return param, nil
+		return param, errors.New("aa")
 	}
 
 	func2 := func(ctx context.Context, param interface{}) (interface{}, error) {
-		return param, nil
+		return param, errors.New("bb")
 	}
 
 	// func3 := func(ctx context.Context, param interface{}) (interface{}, error) {
