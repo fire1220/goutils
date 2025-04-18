@@ -62,10 +62,10 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 	}
 	ctx, cancel := context.WithCancel(ctx)
 	ret := make([]interface{}, len(funcList))
-	errChan := make(chan interface{})
+	errChan := make(chan error)
 	wg := &sync.WaitGroup{}
 	wg.Add(1)
-	go func(errChan chan<- interface{}, funcList []Handle, ret *[]interface{}, params ...interface{}) {
+	go func(errChan chan<- error, funcList []Handle, ret *[]interface{}, params ...interface{}) {
 		defer wg.Done()
 		if len(*ret) != len(funcList) {
 			errChan <- errors.New("goroutine execute function params error")
@@ -84,17 +84,17 @@ func (p *parallel) Exec(ctx context.Context, funcList []Handle, params ...interf
 				p = params[k]
 			}
 			wg.Add(1)
-			go func(f Handle, p interface{}, index int, errChan chan<- interface{}) {
+			go func(f Handle, p interface{}, index int, errChan chan<- error) {
 				defer func() {
 					if err := recover(); err != nil {
-						errChan <- err
+						errChan <- fmt.Errorf("parallel.Exec index %v panic: %v", index, err)
 						cancel()
 					}
 				}()
 				defer wg.Done()
 				res, err := f(ctx, p)
 				if err != nil {
-					errChan <- err
+					errChan <- fmt.Errorf("parallel.Exec index %v error: %v", index, err)
 					cancel()
 				}
 				(*ret)[index] = res
